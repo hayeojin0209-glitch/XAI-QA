@@ -1066,23 +1066,14 @@
 
     // Default Events for 2026.09.01 ~ 2026.12.31 based on Excel
     const DEFAULT_EVENTS = [
-      { id: 'ev_1', date: '2026-09-21', title: '9월 직능평 접수 마감(14시)'},
-      { id: 'ev_2', date: '2026-09-29', title: '9월 직능평' },
-      { id: 'ev_3', date: '2026-09-30', title: '9월 직능평' },
-      { id: 'ev_4', date: '2026-10-01', title: '9월 직능평' },
-      { id: 'ev_5', date: '2026-10-02', title: '9월 직능평' },
-      { id: 'ev_6', date: '2026-09-29', title: '~ 1차수 신청 권장', memo: '1차수 수강 희망 시 서류제출 권장' },
-      { id: 'ev_7', date: '2026-10-06', title: '~ 1차수 처리', memo: '10/7 신청자부터 2차수 처리' },
-      { id: 'ev_8', date: '2026-10-07', title: '2차수 처리~', memo: '10/7 ~ 11/25' },
-      { id: 'ev_9', date: '2026-10-15', title: '📌 7차시 오픈' },
-      { id: 'ev_10', date: '2026-11-12', title: '📌1차수 수강기간 종료' },
-      { id: 'ev_11', date: '2026-11-20', title: '📌기초 신청 마감' },
-      { id: 'ev_12', date: '2026-11-25', title: '📌2차수 수강기간 종료' },
-    ];
+      {"id":"ev_1","date":"2026-09-21","title":"9월 직능평 접수 마감(14시)"},{"id":"ev_2","date":"2026-09-29","title":"9월 직능평"},{"id":"ev_3","date":"2026-09-30","title":"9월 직능평"},
+      {"id":"ev_4","date":"2026-10-01","title":"9월 직능평"},{"id":"ev_5","date":"2026-10-02","title":"9월 직능평"},{"id":"ev_6","date":"2026-09-29","title":"~ 1차수 신청 권장","memo":"1차수 수강 희망 시 서류제출 권장"},
+      {"id":"ev_7","date":"2026-10-06","title":"~ 1차수 처리","memo":"10/7 신청자부터 2차수 처리"},{"id":"ev_8","date":"2026-10-07","title":"2차수 처리~","memo":"10/7 ~ 11/25"},{"id":"ev_9","date":"2026-10-15","title":"📌 7차시 오픈"},
+      {"id":"ev_10","date":"2026-11-12","title":"📌1차수 수강기간 종료"},{"id":"ev_11","date":"2026-11-20","title":"📌기초 신청 마감"},{"id":"ev_12","date":"2026-11-25","title":"📌2차수 수강기간 종료"}];
 
     // Local Storage Keys
-    const STORAGE_KEY_QA = 'MATCHUP_QA_DATA_V5';
-    const STORAGE_KEY_EVENTS = 'MATCHUP_CAL_EVENTS_V5';
+    const STORAGE_KEY_QA = 'MATCHUP_QA_DATA_V6';
+    const STORAGE_KEY_EVENTS = 'MATCHUP_CAL_EVENTS_V6';
 
     // State Variables
     let qaItems = loadQAData();
