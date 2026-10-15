@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[매치업 X+AI] 관리자 문의응대 매뉴얼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* 보라색 테마 팔레트 */
+      --primary: #7c3aed;
+      --primary-dark: #6d28d9;
+      --primary-deep: #4c1d95;
+      --primary-light: #a78bfa;
+      --primary-subtle: #f5f3ff;
+      --primary-border: #ddd6fe;
+      
+      --purple-50: #faf5ff;
+      --purple-100: #f3e8ff;
+      --purple-600: #9333ea;
+      --purple-700: #7e22ce;
+      
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      
+      --radius: 12px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #f8fafc; color: var(--slate-800); line-height: 1.6; }
+
+    /* Header - Deep Purple Gradient */
+    .app-header {
+      background: linear-gradient(135deg, #2e1065 0%, #4c1d95 40%, #7c3aed 100%);
+      color: white;
+      padding: 1.8rem 13rem 1.5rem 13rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(76, 29, 149, 0.25);
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .badge-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .title-area h1 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-top: 0.3rem;
+    }
+    .title-area p {
+      color: #e9d5ff;
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+    .header-actions {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+    }
+    .btn-top {
+      background: white;
+      color: var(--primary-dark);
+      border: none;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+    .btn-top:hover {
+      background: #f5f3ff;
+      transform: translateY(-1px);
+    }
+    .btn-top.secondary {
+      background: rgba(255,255,255,0.18);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .btn-top.secondary:hover {
+      background: rgba(255,255,255,0.28);
+    }
+
+    /* Search & Action Bar */
+    .controls-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      padding: 0.65rem 0.9rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .search-input-box {
+      flex: 1;
+      min-width: 280px;
+      position: relative;
+    }
+    .search-input-box input {
+      width: 100%;
+      padding: 0.65rem 1rem 0.65rem 2.4rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      outline: none;
+      font-size: 0.92rem;
+      background: #ffffff;
+      color: var(--slate-900);
+      transition: all 0.2s;
+    }
+    .search-input-box input:focus {
+      border-color: #c084fc;
+      box-shadow: 0 0 0 3px rgba(192, 132, 252, 0.4);
+    }
+    .search-icon {
+      position: absolute;
+      left: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7e22ce;
+      font-size: 1rem;
+    }
+
+    /* Container */
+    .main-container {
+      max-width: 80%;      
+      margin: 1.5rem auto;
+      padding: 0 1rem 4rem 1rem;
+    }
+
+    /* Two Main Tabs (틀고정 Sticky 적용) */
+    .tabs-nav {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--primary-border);
+      margin-bottom: 1.5rem;
+      background: white;
+      padding: 0.5rem 1rem 0 1rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08); /* 그림자를 살짝 더 주어 입체감 부여 */
+      
+      /* 틀고정 필수 속성 */
+      position: sticky;
+      top: 148px;        /* 상단 보라색 헤더 높이만큼 띄워 바로 밑에 밀착 */
+      z-index: 90;       /* 카드 내용물보다 항상 위에 위치하도록 설정 */
+    }
+    .tab-btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      background: none;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--slate-500);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tab-btn:hover { color: var(--primary); }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+    }
+    .tab-count {
+      background: var(--purple-100);
+      color: var(--purple-700);
+      font-size: 0.78rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      font-weight: 700;
+    }
+
+    /* Category Filter Pills */
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .pill-btn {
+      background: white;
+      border: 1px solid var(--slate-200);
+      color: var(--slate-600);
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .pill-btn:hover {
+      border-color: var(--primary-light);
+      color: var(--primary);
+      background: var(--purple-50);
+    }
+    .pill-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 2px 5px rgba(124, 58, 237, 0.3);
+    }
+
+    /* Info Bar */
+    .info-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.88rem;
+      color: var(--slate-600);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .quick-toggle-group {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .btn-sm-ghost {
+      background: white;
+      border: 1px solid var(--slate-300);
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: var(--slate-700);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-sm-ghost:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--purple-50);
+    }
+
+    /* QA Card Component - 2열 그리드 배치 */
+    .qa-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 한 줄에 똑같은 너비로 2개씩 배치 */
+      column-gap: 1.3rem;                          /* 카드 사이 간격 */
+      row-gap: 2rem; 
+      align-items: start;                   /* 카드의 내용 길이에 맞춰 각각 자연스럽게 높이 조절 */
+    }
+
+    /* 화면이 좁은 모니터나 창을 작게 줄였을 때는 자동으로 1개씩 표시 (모바일/분할화면 대응) */
+    @media (max-width: 1100px) {
+      .qa-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .qa-card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .qa-card:hover {
+      border-color: var(--primary-light);
+      box-shadow: var(--shadow);
+    }
+
+    /* Question Header Bar */
+    .qa-header-bar {
+      padding: 1.2rem 1.4rem 1rem 1.4rem;
+      background: white;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      flex-direction: column; /* 세로 2단(1층 배너/버튼, 2층 질문) 구조로 변경 */
+      gap: 0.75rem;          /* 1층과 2층 질문 사이의 여백 */
+    }
+
+    /* 1층: 카테고리 배너(왼쪽)와 버튼들(오른쪽)을 완벽한 일렬로 배치 */
+    .qa-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 0.75rem;
+    }
+
+    .cat-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      background: var(--purple-100);
+      color: var(--primary-deep);
+      border: 1px solid var(--primary-border);
+      display: inline-block;
+    }
+
+    /* 2층: 카테고리 배너 왼쪽 라인과 딱 맞아떨어지는 질문 텍스트 */
+    .qa-question-text {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      line-height: 1.55;
+      word-break: keep-all; /* 한글 단어가 중간에 끊기지 않게 정돈 */
+      text-align: left;
+    }
+
+    /* Right Action Buttons in Question Bar */
+    .qa-header-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Action Buttons (답변 참고, 자세히 보기) */
+    .btn-action-reply {
+      background: #f5f3ff;
+      border: 1px solid #c4b5fd;
+      color: #6d28d9;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .btn-action-reply:hover {
+      background: #ede9fe;
+      border-color: #8b5cf6;
+      color: #5b21b6;
+    }
+    .btn-action-reply.active {
+      background: #7c3aed;
+      color: white;
+      border-color: #7c3aed;
+    }
+    /* 답변 참고 버튼 안의 세모 아이콘 기본 모양 및 회전 애니메이션 */
+    .btn-action-reply .triangle-icon {
+      display: inline-block;
+      font-size: 0.72rem;
+      transition: transform 0.25s ease;
+    }
+    .btn-action-reply.active .triangle-icon {
+      transform: rotate(180deg);
+    }
+
+    .btn-action-detail {
+      background: #faf5ff;
+      border: 1px solid #d8b4fe;
+      color: #7e22ce;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .btn-action-detail:hover {
+      background: #f3e8ff;
+      border-color: #a855f7;
+      color: #581c87;
+    }
+    .btn-action-detail.active {
+      background: #6d28d9;
+      color: white;
+      border-color: #6d28d9;
+    }
+    .btn-action-detail .triangle-icon {
+      display: inline-block;
+      font-size: 0.72rem;
+      transition: transform 0.25s ease;
+    }
+    .btn-action-detail.active .triangle-icon {
+      transform: rotate(180deg);
+    }
+
+    .btn-action-edit {
+      background: #f8fafc;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-600);
+      padding: 0.45rem 0.65rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-action-edit:hover {
+      background: var(--slate-200);
+      color: var(--slate-900);
+    }
+
+    /* C열: 답변(핵심) 영역 - 항상 기본 노출! */
+    .qa-core-area {
+      padding: 1.1rem 1.4rem;
+      background: #fafafa;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .core-header {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.83rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.45rem;
+    }
+    .core-content {
+      font-size: 0.95rem;
+      color: #1e293b;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-weight: 500;
+      background: white;
+      padding: 0.9rem 1.1rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      border-top: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* D열 & E열: 토글 컨테이너 */
+    .collapsible-container {
+      display: none;
+      padding: 1.1rem 1.4rem;
+      animation: fadeIn 0.2s ease;
+    }
+    .collapsible-container.open {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* E열 답변 참고 디자인 */
+    .box-reply-reference {
+      background: #fdf4ff;
+      border: 1px solid #f0abfc;
+      border-radius: 10px;
+      padding: 1.1rem;
+    }
+    .box-reply-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+    .box-reply-title {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #a21caf;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* D열 자세히 보기 디자인 */
+    .box-detail-view {
+      background: #f5f3ff;
+      border: 1px solid #c4b5fd;
+      border-radius: 10px;
+      padding: 1.1rem;
+    }
+    .box-detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+    .box-detail-title {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #6d28d9;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .box-content-text {
+      font-size: 0.92rem;
+      line-height: 1.68;
+      color: #334155;
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: white;
+      padding: 0.9rem 1.1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .box-empty-text {
+      color: #94a3b8;
+      font-style: italic;
+      font-size: 0.88rem;
+      padding: 0.75rem 1rem;
+      background: white;
+      border-radius: 8px;
+      border: 1px dashed #cbd5e1;
+    }
+
+    /* Copy Button */
+    .btn-copy {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.78rem;
+      cursor: pointer;
+      color: #475569;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.15s;
+    }
+    .btn-copy:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .btn-copy.copied {
+      background: #10b981;
+      color: white;
+      border-color: #10b981;
+    }
+
+    /* Highlight Search */
+    mark {
+      background-color: #fef08a;
+      color: inherit;
+      padding: 0.05em 0.25em;
+      border-radius: 3px;
+    }
+
+    /* ========================================================
+       Calendar Tab (2026.09.01 ~ 2026.12.31)
+       ======================================================== */
+    .calendar-wrapper {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+    }
+    .cal-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .cal-month-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .cal-nav-btn {
+      background: var(--purple-50);
+      border: 1px solid var(--primary-border);
+      color: var(--primary-dark);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .cal-nav-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+    .cal-current-label {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      min-width: 170px;
+      text-align: center;
+    }
+    .cal-month-pills {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .month-pill {
+      border: 1px solid var(--slate-300);
+      background: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-700);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .month-pill:hover { border-color: var(--primary); color: var(--primary); }
+    .month-pill.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* Calendar Grid */
+    .cal-grid-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--slate-600);
+      padding: 0.6rem 0;
+      background: #f8fafc;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+    .cal-grid-header div:first-child { color: #ef4444; }
+    .cal-grid-header div:last-child { color: #3b82f6; }
+
+    .cal-grid-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .cal-day-cell {
+      min-height: 105px;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      padding: 0.4rem 0.45rem;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.15s;
+      cursor: pointer;
+      position: relative;
+    }
+    .cal-day-cell:hover {
+      border-color: var(--primary-light);
+      background: #faf5ff;
+    }
+    .cal-day-cell.other-month {
+      background: #f8fafc;
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .cal-day-cell.today {
+      border: 2px solid var(--primary);
+      background: #faf5ff;
+    }
+    .day-number {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 0.35rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cal-day-cell.sun .day-number { color: #ef4444; }
+    .cal-day-cell.sat .day-number { color: #3b82f6; }
+
+    .events-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+      overflow-y: auto;
+      max-height: 80px;
+    }
+    .event-badge {
+      font-size: 0.73rem;
+      font-weight: 600;
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      background: var(--purple-100);
+      color: var(--primary-deep);
+      border-left: 3px solid var(--primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .event-badge:hover {
+      background: var(--primary-dark);
+      color: white;
+    }
+    .event-badge .del-x {
+      font-size: 0.68rem;
+      margin-left: 4px;
+      opacity: 0.7;
+    }
+    .event-badge .del-x:hover { opacity: 1; color: #ffedd5; }
+
+    /* Modal Styling */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: white;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+      animation: modalSlide 0.2s ease;
+    }
+    @keyframes modalSlide {
+      from { transform: translateY(15px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #faf5ff;
+      border-radius: 14px 14px 0 0;
+    }
+    .modal-header h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-deep);
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--slate-400);
+    }
+    .modal-close:hover { color: var(--slate-700); }
+    .modal-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--slate-300);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      outline: none;
+      transition: all 0.15s;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+    }
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      background: #f8fafc;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      border-radius: 0 0 14px 14px;
+    }
+    .btn-modal {
+      padding: 0.6rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-modal.primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-modal.primary:hover {
+      background: var(--primary-dark);
+    }
+    .btn-modal.ghost {
+      background: var(--slate-200);
+      color: var(--slate-700);
+    }
+    .btn-modal.ghost:hover {
+      background: var(--slate-300);
+    }
+    .btn-modal.danger {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+    .btn-modal.danger:hover {
+      background: #fecaca;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .app-header { padding: 1.25rem 1rem; }
+      .header-top { flex-direction: column; align-items: flex-start; }
+      .main-container { padding: 0 0.8rem 2rem 0.8rem; }
+      .qa-header-bar { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .qa-header-actions { width: 100%; justify-content: flex-end; flex-wrap: wrap; }
+      .cal-header-bar { flex-direction: column; align-items: flex-start; }
+      .cal-day-cell { min-height: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-top">
+      <div class="title-area">
+        <div class="badge-hub">⚡ 2026 매치업 X+AI 과정용</div>
+        <h1>[매치업 X+AI] 관리자 문의응대 매뉴얼</h1><br>
+        <p>배터리 X+AI 담당: 김규연 매니저 - gyuyeon0731@hyundai-ngv.com | 02-870-8085</p>
+        <p>제어 X+AI 담당: 하여진 매니저 - hayj@hyundai-ngv.com | 02-870-8068</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-top" id="btnOpenAddModal">➕ 새 Q&A 등록</button>
+        <button class="btn-top secondary" id="btnResetData" title="로컬 저장 데이터를 초기화하고 엑셀 원본 데이터로 복원합니다">🔄 새로고침</button>
+      </div>
+    </div>
+    <div class="controls-wrapper">
+      <div class="search-input-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="예: 승인, 인증서, 7차시, 선발" autocomplete="off">
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <!-- 2개의 상단 탭 -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" data-tab="qaTab">
+        <span>💬 Q&A 문의응대</span>
+        <span class="tab-count" id="qaTotalCountBadge">0</span>
+      </button>
+      <button class="tab-btn" data-tab="scheduleTab">
+        <span>📅 일정 확인 </span>
+        <span class="tab-count" id="scheduleCountBadge">0</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: Q&A 문의응대 -->
+    <div id="qaTabSection">
+      <!-- 카테고리 필터 버튼 -->
+      <div class="category-pills" id="categoryPillContainer">
+        <button class="pill-btn active" data-cat="all">전체</button>
+      </div>
+
+      <!-- 상단 카운트 & 빠른 일괄 토글 -->
+      <div class="info-bar">
+        <div>검색 결과: <strong id="visibleCount" style="color:var(--primary); font-size:1rem;">0</strong>건</div>
+        <div class="quick-toggle-group">
+          <button class="btn-sm-ghost" id="btnExpandAllDetails">모든 [자세히 보기] 열기</button>
+          <button class="btn-sm-ghost" id="btnCollapseAll">모두 접기</button>
+        </div>
+      </div>
+
+      <!-- QA Card Grid -->
+      <div class="qa-grid" id="qaCardContainer">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </div>
+
+    <!-- TAB 2: 일정 확인 -->
+    <div id="scheduleTabSection" style="display: none;">
+      <div class="calendar-wrapper">
+        <div class="cal-header-bar">
+          <div class="cal-month-nav">
+            <button class="cal-nav-btn" id="calPrevMonthBtn">‹</button>
+            <div class="cal-current-label" id="calMonthLabel">2026년 9월</div>
+            <button class="cal-nav-btn" id="calNextMonthBtn">›</button>
+          </div>
+
+          <div class="cal-month-pills">
+            <button class="month-pill active" data-year="2026" data-month="8">9월</button>
+            <button class="month-pill" data-year="2026" data-month="9">10월</button>
+            <button class="month-pill" data-year="2026" data-month="10">11월</button>
+            <button class="month-pill" data-year="2026" data-month="11">12월</button>
+          </div>
+
+          <div>
+            <button class="btn-top" id="btnOpenAddEventModal" style="background:var(--primary); color:white;">➕ 일정 추가</button>
+          </div>
+        </div>
+
+        <div class="cal-grid-header">
+          <div>일 (SUN)</div>
+          <div>월 (MON)</div>
+          <div>화 (TUE)</div>
+          <div>수 (WED)</div>
+          <div>목 (THU)</div>
+          <div>금 (FRI)</div>
+          <div>토 (SAT)</div>
+        </div>
+
+        <div class="cal-grid-days" id="calGridDays">
+          <!-- Calendar Days Rendered Here -->
+        </div>
+
+        <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--slate-500); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+          <span>💡 날짜 칸을 클릭하거나 상단의 <strong>[➕ 일정 추가]</strong> 버튼을 눌러 자유롭게 일정을 등록할 수 있습니다.</span>
+          <span>등록된 일정은 브라우저에 자동 보관됩니다.</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==============================================
+       MODAL 1: Q&A 등록 및 수정
+       ============================================== -->
+  <div class="modal-overlay" id="qaModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="qaModalTitle">새 Q&A 등록</h3>
+        <button class="modal-close" id="btnCloseQaModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="modalQaId">
+        <!-- 카테고리 선택 및 직접 입력 영역 -->
+      <div class="form-group">
+        <label>카테고리 *</label>
+        <!-- 1) 기존 카테고리 드롭다운 선택창 -->
+      <select id="modalQaCatSelect">
+        <!-- JS가 기존 카테고리들을 자동으로 채워 넣음 -->
+      </select>
+        <!-- 2) '신규 카테고리 추가' 선택 시 나타나는 직접 입력창 (기본 숨김) -->
+      <input 
+        type="text" 
+        id="modalQaCatCustom" 
+        placeholder="새로운 카테고리명을 입력하세요" 
+        style="display: none; margin-top: 0.4rem;" 
+      />
+      </div>
+        <div class="form-group">
+          <label>질문 내용 *</label>
+          <input type="text" id="modalQaQuestion" placeholder="질문을 입력하세요">
+        </div>
+        <div class="form-group">
+          <label>핵심 답변 - [기본 노출] *</label>
+          <textarea id="modalQaCore" rows="3" placeholder="주요 내용 요약"></textarea>
+        </div>
+        <div class="form-group">
+          <label>📄 상세 내용 - [자세히 클릭 시 노출]</label>
+          <textarea id="modalQaDetail" rows="4" placeholder="상세 내용(선택)"></textarea>
+        </div>
+        <div class="form-group">
+          <label>메일&게시판 답변 (대응 참고용도) - [💬 클릭 시 노출]</label>
+          <textarea id="modalQaReply" rows="4" placeholder="메일/게시판 답변 템플릿(선택)"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal danger" id="btnDeleteQa" style="display:none; margin-right:auto;">🗑️ 삭제</button>
+        <button class="btn-modal ghost" id="btnCancelQaModal">취소</button>
+        <button class="btn-modal primary" id="btnSaveQa">저장하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODAL 2: 일정 추가 모달
+       ============================================== -->
+  <div class="modal-overlay" id="eventModal">
+    <div class="modal-box" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>📅 일정 등록</h3>
+        <button class="modal-close" id="btnCloseEventModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>날짜 (2026.09.01 ~ 2026.12.31)</label>
+          <input type="date" id="modalEventDate" min="2026-09-01" max="2026-12-31" value="2026-09-01">
+        </div>
+        <div class="form-group">
+          <label>일정 제목 *</label>
+          <input type="text" id="modalEventTitle" placeholder="예: 7차시 오픈, 직무능력평가 접수 마감">
+        </div>
+        <div class="form-group">
+          <label>메모/참고사항 (선택)</label>
+          <textarea id="modalEventMemo" rows="2" placeholder="간단한 추가 안내 사항"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal ghost" id="btnCancelEventModal">취소</button>
+        <button class="btn-modal primary" id="btnSaveEvent">일정 등록</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. Initial Data Loaded from Excel
+    // ==========================================
+    const DEFAULT_QA_ITEMS = [{"id": "qa_1", "category": "X+AI 기초", "question": "신청 조건과 일정이 어떻게 변경됐나요?", "core": "직무능력 인증서 → 수료증\n\n✍ 기초과정 학습기간\n- 1차수 : 9/10(목) ~ 11/12(목)  \n- 2차수: 10/7(수)~11/25(수)\n\n ❗ 시스템상 처리\n- ~ 10/6 신청자   → 1차수 (2차수 수강 희망 시 10/6 이후 신청 권장)\n- 10/7 ~ 11/20 신청자   → 2차수", "detail": "매치업 신에너지/지능형자동차 직무능력 인증평가 필수 과정 수료증(직무 택1 이상)\n \n✍학습기간\n- 1차수 : 9/10(목) ~ 11/12(목)  \n- 2차수: 10.7.~11.25.(유지)\n\n ❗ 시스템상 처리\n- ~ 10/6 신청자   → 1차수 (2차수 수강 희망 시 10/6 이후 신청 권장)\n- 10/7 ~ 11/20 신청자   → 2차수\n\n※ 상시 신청 가능. 단, 늦게 신청하면 실제 수강기간 짧아지니 1차수 수강 희망 시 9/29까지 신청 및 서류제출 권장\n※ 매일 오전 수강승인 처리 및 부적격자 알림 메일\n※ 기존 인증서 제출한 경우 재제출 불필요\n※ 학습종료시까지 인증서를 취득/제출한 경우, 심화학습 대상자 선발시 가산점 부여 예정(세부 기준 내부 검토)", "reply": "1. 모집기간\n상시 모집으로 변경되었습니다.(전체 마감: 11/20까지)\n다만, 신청 시점이 늦어질수록 실제 수강 가능 기간이 짧아질 수 있으니 참고 부탁드립니다.\n※ 1차수 수강 희망 시 9/29까지 신청 및 서류 제출 권장\n\n변경 수강기간(기초)\n-  1차수: 2026.08.26~2026.10.29\n-  2차수: 2026.10.07.~2026.11.25\n\n▶ 공지사항: https://www.hyundai-ngv.com/board/read.jsp?id=17037&"}, {"id": "qa_2", "category": "X+AI 기초", "question": "X+AI 과정 수강신청했는데 승인 언제 되나요?", "core": "수강 승인: 매일 오전", "detail": "[배터리X+AI][기초] & [제어X+AI][기초]\n\n※ 수강신청 후 필수 서류 제출 必\n   ▶ 서류 제출처 : ngvcampus3@hyundai-ngv.com\n   ▶ 필수 서류 확인시 수강 승인 매일 오전(~11/20)\n\nhttps://www.hyundai-ngv.com/course/class_view.jsp?id=8508&clid=14739 \n-> 링크에서 필수 서류 제출 양식 확인 가능", "reply": "수강 승인은 필수 제출서류 검토 후 차례대로 진행할 예정입니다.\n\n※ 수강신청 후 필수 서류 제출 必\n   ▶ 서류 제출 양식 확인: 신청 과정명 클릭 후 [과정소개] 참고\n   ▶ 수강 승인: 매일 오전"}, {"id": "qa_3", "category": "X+AI 기초", "question": "배터리 X+AI / 제어 X+AI 동시 신청 가능한가요?", "core": "동시 수강 가능\n단, 매치업 직무별 필수과정 참고해서 두 분야 다 수강해야 함", "detail": "", "reply": "배터리 X+AI 과정과 제어 X+AI 과정은 두 과정 모두 신청 및 수강이 가능합니다.\n아래 링크에서 직무능력인증평가를 위한 필수 과정을 확인하시어 수강신청 하시기 바랍니다.\n매치업 직무별 필수 과정 확인: hhttps://www.hyundai-ngv.com/board/read.jsp?id=17037&"}, {"id": "qa_4", "category": "X+AI 기초", "question": "직무능력 인증평가 인증서(필수서류) 확인 후 수강 승인에 따라\n1차수, 2차수 수강신청을 나누어 진행하여야 하나요?", "core": "매치업 X+AI 과정은 기초·심화 과정의 차시는 교차 수강 가능 \nex. 기초 2차수, 심화 1차수 수강 가능", "detail": "", "reply": "매치업 X+AI 과정은 아래와 같이 수강가능하며, 필수 요건이 충족된 이후에 수강신청 가능합니다.\n\n    - 기초과정 : 1차시, 2차시 중 택1 (단, 직무능력인증평가 인증서가 준비된 이후 수강신청 가능)\n    - 심화과정 : 1차시, 2차시 중 택1 (기초과정 이수 후 수강신청 가능)\n       ※ 기초·심화 과정의 차시는 교차 수강 가능 ex. 기초 2차시, 심화 1차시 수강 가능"}, {"id": "qa_5", "category": "X+AI 기초", "question": "1차수 수강신청을 2차수로 변경해도 되나요?", "core": "1차수 수강취소 후 2차수 신청", "detail": "1차수 수강신청 후 2차수 수강으로 변경 원하시는 경우, 혹은 1차수 수강요건 미충족 되신 경우\n1차수는 수강취소 후 2차수 재수강신청 하시면 됩니다.\n ※ 차수변경은 불가하며, 재수강신청에 대한 별도 불이익 없음", "reply": "매치업 X+AI 간 차시 변경 가능 여부\n\n    - 1차시 수강신청 후 2차시 수강으로 변경 원하시는 경우, 혹은 1차시 수강요건 미충족 되신 경우\n       1차시는 수강취소 후 2차시 재수강신청 하시면 됩니다.\n       ※ 차시변경은 불가하며, 재수강신청에 대한 별도 불이익 없음"}, {"id": "qa_6", "category": "X+AI 기초", "question": "7차시 언제 오픈되나요?", "core": "10/1에 일괄 오픈 예정", "detail": "", "reply": ""}, {"id": "qa_7", "category": "X+AI 심화", "question": "심화과정 선발 인원은 몇 명인가요?", "core": "차수별로 20명 내외", "detail": "", "reply": ""}, {"id": "qa_8", "category": "X+AI 심화", "question": "우수학습자 선발 기준 및 선발 인원은 어떻게 되나요?", "core": "수료점수 높은 순, 5명", "detail": "", "reply": ""}, {"id": "qa_9", "category": "우수학습자", "question": "인증서가 많을수록 가산점이 추가된다는 등 직능평 외 별도의 우대요이 있나요? \n인증서 제출하면 무조건 심화과정 들을 수 있나요?", "core": "- 기초과정 우수학습자 기준 = 수료점수 높은 순\n- 심화선발 기준 = 수료점수 높은 순\n\n*기초과정 우수학습자, 심화선발 우대요건 = 직능평\n*나머지 기준 비공개", "detail": "직능평 인증서가 있으면 기초과정 우수학습자 선정에 유리하고, 심화선발 시에 우대요건으로 적용하는 건 맞음.\n동점자가 많을 시 선별 기준은 비공개 \n(내부적으로는 직능평 인증서 개수, 토론 및 과제 답변 퀄리티 등을 고려 중임)", "reply": "[심화과정]\n1. 심화과정 선발 인원: 차수별 20명 내외\n2. 심화과정 선발 기준: 기초과정 평가 수료점수 고득점 순\n3. 선발 우대요건: 직무능력인증평가 결과 제출 시 가산점 부여\n※ 직무능력인증평가 제출만으로 선발이 확정되는 것은 아님\n4. 동점자 발생 시: 별도의 내부 기준을 적용하여 선발\n※ 세부 기준은 비공개\n\n[기초과정 우수학습자]\n1. 기초과정 우수학습자 선발 기준: 수료점수 고득점 순\n2. 선발 우대요건: 직무능력인증평가 제출\n3. 동점자 발생 시: 별도의 내부 기준 적용하여 선발\n※ 세부 기준은 비공개"}, {"id": "qa_10", "category": "매치업", "question": "기존 매치업 과정에서 직무별 필수과정에 '심화'를 들어야하나요?", "core": "선택사항, 공통과 기초만 수강하면 됨", "detail": "기존 매치업은 기초와 심화가 따로 나뉘어지지 않음.\n지능형자동차의 경우에만, 과정명이 '기초'와 '심화'로 나누어질 뿐.\n지능형자동차 직무능력인증평가를 위해서 들어야 하는 필수 과정은 '기초'만 해당됨.", "reply": ""}, {"id": "qa_11", "category": "매치업", "question": "매치업 과정 수강신청 기간이 지났는데 어떻게 신청하나요?", "core": "NGV CAMPUS > 국비지원 > 매치업 > 2차수 선택", "detail": "NGV CAMPUS 신청 > 매치업 과정 신청 시 - 차수 선택 '2차' 선택\n교육기간 : 2026.07.01 ~ 2026.12.31 확인", "reply": "NGV Campus - 과정 선택 후 차시를 '2차'로 변경하여 확인 부탁드립니다."}, {"id": "qa_12", "category": "수료증", "question": "수료증은 어디서 발급 받나요?", "core": "NGV CAMPUS - 마이페이지 - 증명서 발급 - 맨 오른쪽 수료증 클릭 (not 수강확인증)", "detail": "", "reply": ""}, {"id": "qa_13", "category": "수료증", "question": "매치업 말고 다른 과정 수료증은 인정 안 되나요?", "core": "과정에 따라 다르니 LMS 회원관리 탭에서 조회", "detail": "방법\nLMS>회원조회>학습로그 or 회원계정으로 로그인 > 마이페이지 > 수료 과정 확인\n\n유사 과정 인정 조건\n1. 해당 과정이 매치업과 차시 구성&영상이 동일할 경우\n ※ 한 과정 내에 매치업 필수과정(공통+기초) 차시가 모두 포함된 경우 있음 > 인정O\n\n2. 과정명에 '수료증'이 포함된 경우 \n ※ A 과정이 '미수료' 처리되어 있어도 'A 과정+수료증' 과정이 '수료' 처리되어 있을 시 해당 과정 수료로 인정 O\n ※ '공통과정+수료증'과정 수료처리 안 되어 있는 경우 해당 공통 과정의 진도율이 100%일 경우 수료로 인정 O\n ex. [2025 H-모빌리티 클래스 자율주행 Track 수료증_인지 분야] 수료 → 매치업 지능형 공통 O, 인지(기초) O", "reply": ""}, {"id": "qa_14", "category": "인증서", "question": "인증서 어떻게 발급 받나요?", "core": "발급 & 재발급 모두 매치업 홈페이지에서 '인증서 발급'", "detail": "NGV CAMPUS에서는 발급 불가\n만약 거기서도 발급이 안되면 매치업 홈페이지에 있는 문의처로 연락 안내(matchup@nile.or.kr)", "reply": "직무능력 인증평가 합격 후 인증서 발급은 매치업 사이트에서만 가능합니다. 로그인 후 [인증서 발급] 탭에서 확인해 주시기 바랍니다.\n▶ 매치업 바로가기 : https://www.matchup.kr\n\n만약 발급이 어려우신 경우, matchup@nile.or.kr 로 문의 주시기 바랍니다."}, {"id": "qa_15", "category": "인증서", "question": "직무능력인증평가 이번에 보는데 인증서 언제 발급되나요?", "core": "9월 직무능력 인증평가 시험 일정: 9월 29, 30, 10월 1, 2일 (총 4일, 8개 직무)\n- 합격자 발표: 추후 공지 예정\n- 합격자 발표 직후 인증서 발급 가능", "detail": "9월 직무능력 인증평가 시험 일정: 9월 29, 30, 10월 1, 2일 (총 4일, 8개 직무)\n- 합격자 발표: 추후 공지 예정\n- 9/21 14시 신청 마감\n인증평가 합격 시, 본인 차수 수강기간 내 언제든 제출하면 심화과정 가산점 부여 예정", "reply": ""}, {"id": "qa_16", "category": "인증서", "question": "기초랑 심화 같은 인증서인가요? 직능평 인증서와는 다른 인증서인가요?", "core": "서로 다른 인증서이며 직무 분야별로 발급", "detail": "* 매치업 직능평 > 매치업 인증서\n* X+AI 기초 수료 > 매치업 X+AI 인증서\n* X+AI 심화 수료 > 매치업 X+AI 인증서", "reply": "서로 다른 인증서이며 직무능력 인증평가 인증서는 직무 분야별로 취득/발급됩니다.\n※ ex. 배터리, 전력변환, 배터리X+AI 등\n\n-매치업 X+AI 수료 : 매치업 X+AI 직무능력인증서 발급(기초/심화 각각)\n-매치업 X+AI 외 수료 : 해당분야 직무능력인증 인증평가 응시가능, 인증평가 취득시 매치업 X+AI 심화과정 선발시 우대"}, {"id": "qa_17", "category": "직능평", "question": "직능평 신청하려는데 회원번호를 모르겠어요.", "core": "매치업 홈페이지 로그인 시 이름 옆에 뜨는 번호(직능평 신청 시 기입 필요)", "detail": "** 직능평 신청 시 매치업 사이트 회원번호 필요 **\n1. 매치업 사이트 회원가입 여부 확인(99% !!)\n2. 로그인 시 우측상단에 본인 성명 옆에 회원번호 있음 ex. 홍길동(261234) 님\n3. 안 뜨는 경우 미가입 or 매치업 담당자에게 확인 요청(직접 등록 가능)", "reply": ""}, {"id": "qa_18", "category": "직능평", "question": "이번 직무능력인증평가 놓쳤는데, 언제 또 열리나요?", "core": "올해 2~3번 더 진행 예정, 자세한 일정X", "detail": "", "reply": "매치업 직무능력 인증평가는 이번 평가(9/29~10/2) 외에도 올해 2번 더 진행할 예정입니다.\n※ 세부 일정 추후 공지 예정"}, {"id": "qa_19", "category": "직능평", "question": "직무능력인증평가 어떻게 볼 수 있나요? 어디서 신청하나요?", "core": "NGV CAMPUS 공지사항 or 개별 안내 메일로 안내 예정, 지정기간 내에 신청", "detail": "직무능력인증평가는 지정기간 내에만 신청 가능함.\n신청기간 내 NGV CAMPUS > 고객센터 > 공지사항에 올라오는 글에 첨부된 링크로 신청가능 or 개별 안내 메일 발송", "reply": "직무능력 인증평가는 별도의 신청 절차가 필요하며 해당 운영 회차의 지정기간 내에만 신청 가능합니다. 세부 일정 및 신청 방법은 수료자 대상으로 별도 안내드릴 예정입니다."}, {"id": "qa_20", "category": "기타", "question": "수강신청 취소하고 싶은데 어떻게 하나요?", "core": "마이페이지에서 해당 과정 신청 취소, 불가할 경우 직접 LMS에서 취소승인 처리(삭제XXX)", "detail": "LMS 관리자 사이트에서 '취소승인'으로 수강 취소처리", "reply": ""}, {"id": "qa_21", "category": "기타", "question": "국비지원이 어떻게 이루어지는 건가요?", "core": "교육 결제 시 국비지원 반영, 수강 신청 단계에서부터 0원으로 교육 신청 가능", "detail": "", "reply": ""}];
+
+    // Default Events for 2026.09.01 ~ 2026.12.31 based on Excel
+    const DEFAULT_EVENTS = [
+      { id: 'ev_1', date: '2026-09-21', title: '9월 직능평 접수 마감(14시)'},
+      { id: 'ev_2', date: '2026-09-29', title: '9월 직능평' },
+      { id: 'ev_3', date: '2026-09-30', title: '9월 직능평' },
+      { id: 'ev_4', date: '2026-10-01', title: '9월 직능평' },
+      { id: 'ev_5', date: '2026-10-02', title: '9월 직능평' },
+      { id: 'ev_6', date: '2026-09-29', title: '~ 1차수 신청 권장', memo: '1차수 수강 희망 시 서류제출 권장' },
+      { id: 'ev_7', date: '2026-10-06', title: '~ 1차수 처리', memo: '10/7 신청자부터 2차수 처리' },
+      { id: 'ev_8', date: '2026-10-07', title: '2차수 처리~', memo: '10/7 ~ 11/25' },
+      { id: 'ev_9', date: '2026-10-15', title: '📌 7차시 오픈' },
+      { id: 'ev_10', date: '2026-11-12', title: '📌1차수 수강기간 종료' },
+      { id: 'ev_11', date: '2026-11-20', title: '📌기초 신청 마감' },
+      { id: 'ev_12', date: '2026-11-25', title: '📌2차수 수강기간 종료' },
+    ];
+
+    // Local Storage Keys
+    const STORAGE_KEY_QA = 'MATCHUP_QA_DATA_V2';
+    const STORAGE_KEY_EVENTS = 'MATCHUP_CAL_EVENTS_V3';
+
+    // State Variables
+    let qaItems = loadQAData();
+    let eventItems = loadEventData();
+    let currentCategory = 'all';
+    let searchQuery = '';
+
+    // Calendar State
+    let calYear = 2026;
+    let calMonth = 8; // 0-indexed: 8 = September 2026
+
+    // ==========================================
+    // 2. Data Management (Local Storage)
+    // ==========================================
+    function loadQAData() {
+      const saved = localStorage.getItem(STORAGE_KEY_QA);
+      if (saved) {
+        try { return JSON.parse(saved); } catch(e) { console.error(e); }
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_QA_ITEMS));
+    }
+
+    function saveQAData() {
+      localStorage.setItem(STORAGE_KEY_QA, JSON.stringify(qaItems));
+      updateCounts();
+      buildCategoryPills();
+      renderQA();
+    }
+
+    function loadEventData() {
+      const saved = localStorage.getItem(STORAGE_KEY_EVENTS);
+      if (saved) {
+        try { return JSON.parse(saved); } catch(e) { console.error(e); }
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_EVENTS));
+    }
+
+    function saveEventData() {
+      localStorage.setItem(STORAGE_KEY_EVENTS, JSON.stringify(eventItems));
+      updateCounts();
+      renderCalendar();
+    }
+
+    // ==========================================
+    // 3. Tab Switching
+    // ==========================================
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tab = btn.dataset.tab;
+        if (tab === 'qaTab') {
+          document.getElementById('qaTabSection').style.display = 'block';
+          document.getElementById('scheduleTabSection').style.display = 'none';
+        } else {
+          document.getElementById('qaTabSection').style.display = 'none';
+          document.getElementById('scheduleTabSection').style.display = 'block';
+          renderCalendar();
+        }
+      });
+    });
+
+    function updateCounts() {
+      document.getElementById('qaTotalCountBadge').textContent = qaItems.length;
+      document.getElementById('scheduleCountBadge').textContent = eventItems.length;
+    }
+
+    // ==========================================
+    // 4. Category Pills Builder
+    // ==========================================
+    function buildCategoryPills() {
+      const container = document.getElementById('categoryPillContainer');
+      const cats = Array.from(new Set(qaItems.map(item => item.category || '기타')));
+      
+      container.innerHTML = `<button class="pill-btn ${currentCategory === 'all' ? 'active' : ''}" data-cat="all">전체</button>`;
+      
+      cats.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = `pill-btn ${currentCategory === cat ? 'active' : ''}`;
+        btn.dataset.cat = cat;
+        btn.textContent = cat;
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentCategory = cat;
+          renderQA();
+        });
+        container.appendChild(btn);
+      });
+
+      // All button event
+      container.querySelector('[data-cat="all"]').addEventListener('click', (e) => {
+        document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentCategory = 'all';
+        renderQA();
+      });
+    }
+
+    // ==========================================
+    // 5. Render QA List
+    // ==========================================
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function highlightText(text, query) {
+      if (!text) return '';
+      const safe = escapeHtml(text);
+      if (!query.trim()) return safe;
+      // Safe highlight without regular expression syntax error
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp("(" + escapedQuery + ")", "gi");
+      return safe.replace(regex, '<mark>$1</mark>');
+    }
+
+    function renderQA() {
+      const listEl = document.getElementById('qaCardContainer');
+      listEl.innerHTML = '';
+
+      const q = searchQuery.toLowerCase().trim();
+      const filtered = qaItems.filter(item => {
+        const matchesCat = (currentCategory === 'all') || (item.category === currentCategory);
+        const matchesSearch = !q ||
+          (item.question && item.question.toLowerCase().includes(q)) ||
+          (item.core && item.core.toLowerCase().includes(q)) ||
+          (item.detail && item.detail.toLowerCase().includes(q)) ||
+          (item.reply && item.reply.toLowerCase().includes(q)) ||
+          (item.category && item.category.toLowerCase().includes(q));
+        return matchesCat && matchesSearch;
+      });
+
+      document.getElementById('visibleCount').textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `
+          <div style="text-align:center; padding:3.5rem 1rem; background:white; border-radius:12px; border:1px dashed #cbd5e1; color:#64748b;">
+            <p style="font-size:1.15rem; font-weight:700; margin-bottom:0.4rem; color:#475569;">일치하는 Q&A 항목이 없습니다.</p>
+            <p style="font-size:0.9rem;">검색어를 확인하거나 상단 카테고리 필터를 변경해 보세요.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'qa-card';
+        card.dataset.id = item.id;
+
+        card.innerHTML = `
+          <!-- 질문 헤더 바 -->
+          <div class="qa-header-bar">
+            <!-- 1층: 카테고리 배너(좌) + 액션 버튼들(우) 일렬 배치 -->
+            <div class="qa-top-row">
+              <span class="cat-badge">${escapeHtml(item.category || '기타')}</span>
+              <div class="qa-header-actions">
+                <button class="btn-action-reply js-toggle-reply" title="메일&게시판 답변(대응 참고용도) 보기">
+                  <span>💬</span>
+                  <span class="triangle-icon">▼</span>
+                </button>
+                <button class="btn-action-detail js-toggle-detail" title="자세히 보기 내용 펼치기/접기">
+                  <span>자세히</span>
+                  <span class="triangle-icon">▼</span>
+                </button>
+                <button class="btn-action-edit js-edit-qa" title="내용 수정">✏️</button>
+              </div>
+            </div>
+
+            <!-- 2층: 다음 줄에 배치되는 질문 텍스트 (카테고리 왼쪽 변과 일치) -->
+            <div class="qa-question-text">${highlightText(item.question, searchQuery)}</div>
+          </div>
+
+          <!-- C열: 답변(핵심) - 질문 클릭 안 해도 각 질문 바로 밑에 기본 노출! -->
+          <div class="qa-core-area">
+            <div class="core-header">
+              <span>💡 핵심 답변</span>
+            </div>
+            <div class="core-content">${highlightText(item.core || '(등록된 핵심 답변이 없습니다)', searchQuery)}</div>
+          </div>
+
+          <!-- E열: 답변 참고 (클릭 시 토글 노출) -->
+          <div class="collapsible-container js-reply-container">
+            <div class="box-reply-reference">
+              <div class="box-reply-header">
+                <span class="box-reply-title">💬 메일&게시판 답변</span>
+                ${item.reply ? `<button class="btn-copy js-copy" data-copy="${escapeHtml(item.reply)}">📋 본문 복사</button>` : ''}
+              </div>
+              ${item.reply ? `
+                <div class="box-content-text">${highlightText(item.reply, searchQuery)}</div>
+              ` : `
+                <div class="box-empty-text">* 등록된 메일&게시판 답변 서식이 없습니다. 오른쪽 [✏️] 버튼을 눌러 언제든 내용을 추가할 수 있습니다.</div>
+              `}
+            </div>
+          </div>
+
+          <!-- D열: 자세히 보기 (세모 아이콘+자세히보기 클릭 시 토글 노출) -->
+          <div class="collapsible-container js-detail-container">
+            <div class="box-detail-view">
+              <div class="box-detail-header">
+                <span class="box-detail-title">📄 상세 내용</span>
+                ${item.detail ? `<button class="btn-copy js-copy" data-copy="${escapeHtml(item.detail)}">📋 내용 복사</button>` : ''}
+              </div>
+              ${item.detail ? `
+                <div class="box-content-text">${highlightText(item.detail, searchQuery)}</div>
+              ` : `
+                <div class="box-empty-text">* 등록된 상세 내용이 없습니다. 오른쪽 [✏️] 버튼을 눌러 추가할 수 있습니다.</div>
+              `}
+            </div>
+          </div>
+        `;
+
+        // 1) E열 답변 참고 토글 이벤트
+        const replyBtn = card.querySelector('.js-toggle-reply');
+        const replyContainer = card.querySelector('.js-reply-container');
+        replyBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = replyContainer.classList.contains('open');
+          if (isOpen) {
+            replyContainer.classList.remove('open');
+            replyBtn.classList.remove('active');
+          } else {
+            replyContainer.classList.add('open');
+            replyBtn.classList.add('active');
+          }
+        });
+
+        // 2) D열 자세히 보기 토글 이벤트 (세모+자세히보기 한 묶음)
+        const detailBtn = card.querySelector('.js-toggle-detail');
+        const detailContainer = card.querySelector('.js-detail-container');
+        detailBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = detailContainer.classList.contains('open');
+          if (isOpen) {
+            detailContainer.classList.remove('open');
+            detailBtn.classList.remove('active');
+          } else {
+            detailContainer.classList.add('open');
+            detailBtn.classList.add('active');
+          }
+        });
+
+        // 3) 수정 버튼 이벤트
+        card.querySelector('.js-edit-qa').addEventListener('click', (e) => {
+          e.stopPropagation();
+          openEditQaModal(item);
+        });
+
+        listEl.appendChild(card);
+      });
+
+      attachCopyEvents();
+    }
+
+    // Attach Copy to Clipboard
+    function attachCopyEvents() {
+      document.querySelectorAll('.js-copy').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const text = btn.getAttribute('data-copy');
+          navigator.clipboard.writeText(text).then(() => {
+            const origin = btn.innerHTML;
+            btn.innerHTML = '✅ 복사 완료';
+            btn.classList.add('copied');
+            setTimeout(() => {
+              btn.innerHTML = origin;
+              btn.classList.remove('copied');
+            }, 1800);
+          }).catch(() => alert('클립보드 복사 권한을 확인해주세요.'));
+        };
+      });
+    }
+
+    // ==========================================
+    // 6. Q&A Modal (추가 & 수정)
+    // ==========================================
+    const qaModal = document.getElementById('qaModal');
+    const modalQaTitle = document.getElementById('qaModalTitle');
+    const modalQaId = document.getElementById('modalQaId');
+    const modalQaCatSelect = document.getElementById('modalQaCatSelect');
+    const modalQaCatCustom = document.getElementById('modalQaCatCustom');
+    const modalQaQuestion = document.getElementById('modalQaQuestion');
+
+    // 드롭다운 변경 시: '직접 입력'을 골랐을 때만 텍스트창 노출
+    modalQaCatSelect.addEventListener('change', () => {
+      if (modalQaCatSelect.value === '__NEW__') {
+        modalQaCatCustom.style.display = 'block';
+        modalQaCatCustom.value = '';
+        modalQaCatCustom.focus();
+      } else {
+        modalQaCatCustom.style.display = 'none';
+      }
+    });
+
+    // 드롭다운 옵션을 Q&A 데이터 기반으로 자동 생성하는 함수
+    function populateCategoryDropdown(selectedCategory) {
+      const existingCats = Array.from(new Set(qaItems.map(item => item.category || '기타')));
+      modalQaCatSelect.innerHTML = '';
+      
+      existingCats.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        modalQaCatSelect.appendChild(opt);
+      });
+      
+      const newOpt = document.createElement('option');
+      newOpt.value = '__NEW__';
+      newOpt.textContent = '➕ 신규 카테고리 직접 입력...';
+      modalQaCatSelect.appendChild(newOpt);
+
+      if (selectedCategory && existingCats.includes(selectedCategory)) {
+        modalQaCatSelect.value = selectedCategory;
+        modalQaCatCustom.style.display = 'none';
+      } else if (selectedCategory) {
+        modalQaCatSelect.value = '__NEW__';
+        modalQaCatCustom.style.display = 'block';
+        modalQaCatCustom.value = selectedCategory;
+      } else {
+        modalQaCatSelect.value = existingCats[0] || '기타';
+        modalQaCatCustom.style.display = 'none';
+      }
+    }
+    const modalQaCore = document.getElementById('modalQaCore');
+    const modalQaDetail = document.getElementById('modalQaDetail');
+    const modalQaReply = document.getElementById('modalQaReply');
+    const btnDeleteQa = document.getElementById('btnDeleteQa');
+
+      document.getElementById('btnOpenAddModal').addEventListener('click', () => {
+      modalQaTitle.textContent = '➕ 새 Q&A 등록';
+      modalQaId.value = '';
+      
+      const targetCat = currentCategory === 'all' ? '' : currentCategory;
+      populateCategoryDropdown(targetCat);
+      
+      modalQaQuestion.value = '';
+      modalQaCore.value = '';
+      modalQaDetail.value = '';
+      modalQaReply.value = '';
+      btnDeleteQa.style.display = 'none';
+      qaModal.classList.add('open');
+    });
+
+    function openEditQaModal(item) {
+      modalQaTitle.textContent = '✏️ Q&A 내용 수정';
+      modalQaId.value = item.id;
+      
+      populateCategoryDropdown(item.category || '기타');
+      
+      modalQaQuestion.value = item.question || '';
+      modalQaCore.value = item.core || '';
+      modalQaDetail.value = item.detail || '';
+      modalQaReply.value = item.reply || '';
+      btnDeleteQa.style.display = 'block';
+      qaModal.classList.add('open');
+    }
+
+    function closeQaModal() {
+      qaModal.classList.remove('open');
+    }
+
+    document.getElementById('btnCloseQaModal').addEventListener('click', closeQaModal);
+    document.getElementById('btnCancelQaModal').addEventListener('click', closeQaModal);
+
+    // Save QA
+    document.getElementById('btnSaveQa').addEventListener('click', () => {
+      const qText = modalQaQuestion.value.trim();
+      const coreText = modalQaCore.value.trim();
+      if (!qText) {
+        alert('질문 내용을 입력해주세요.');
+        modalQaQuestion.focus();
+        return;
+      }
+      if (!coreText) {
+        alert('답변(핵심) 내용을 입력해주세요.');
+        modalQaCore.focus();
+        return;
+      }
+
+      // 카테고리 값 결정 (신규 직접입력인지 드롭다운 선택인지 확인)
+      let finalCategory = modalQaCatSelect.value;
+      if (finalCategory === '__NEW__') {
+        finalCategory = modalQaCatCustom.value.trim();
+        if (!finalCategory) {
+          alert('새로운 카테고리명을 입력해주세요.');
+          modalQaCatCustom.focus();
+          return;
+        }
+      }
+
+      const id = modalQaId.value;
+      if (id) {
+        // Edit existing
+        const target = qaItems.find(x => x.id === id);
+        if (target) {
+          target.category = finalCategory;
+          target.question = qText;
+          target.core = coreText;
+          target.detail = modalQaDetail.value.trim();
+          target.reply = modalQaReply.value.trim();
+        }
+      } else {
+        // Create new
+        const newId = 'qa_' + Date.now();
+        qaItems.unshift({
+          id: newId,
+          category: finalCategory,
+          question: qText,
+          core: coreText,
+          detail: modalQaDetail.value.trim(),
+          reply: modalQaReply.value.trim()
+        });
+      }
+
+      saveQAData();
+      closeQaModal();
+    });
+
+    // Delete QA
+    btnDeleteQa.addEventListener('click', () => {
+      const id = modalQaId.value;
+      if (!id) return;
+      if (confirm('이 Q&A 항목을 삭제하시겠습니까?')) {
+        qaItems = qaItems.filter(x => x.id !== id);
+        saveQAData();
+        closeQaModal();
+      }
+    });
+
+    // Reset Data
+    document.getElementById('btnResetData').addEventListener('click', () => {
+      if (confirm('모든 수정 내용을 초기화하고 엑셀 원본 데이터로 되돌리시겠습니까?')) {
+        localStorage.removeItem(STORAGE_KEY_QA);
+        localStorage.removeItem(STORAGE_KEY_EVENTS);
+        qaItems = JSON.parse(JSON.stringify(DEFAULT_QA_ITEMS));
+        eventItems = JSON.parse(JSON.stringify(DEFAULT_EVENTS));
+        saveQAData();
+        saveEventData();
+        alert('원본 데이터로 복원되었습니다.');
+      }
+    });
+
+    // Quick Toggles
+    document.getElementById('btnExpandAllDetails').addEventListener('click', () => {
+      document.querySelectorAll('.js-detail-container').forEach(c => c.classList.add('open'));
+      document.querySelectorAll('.btn-action-detail').forEach(b => b.classList.add('active'));
+    });
+    document.getElementById('btnCollapseAll').addEventListener('click', () => {
+      document.querySelectorAll('.js-detail-container, .js-reply-container').forEach(c => c.classList.remove('open'));
+      document.querySelectorAll('.btn-action-detail, .btn-action-reply').forEach(b => b.classList.remove('active'));
+    });
+
+    // Search Input
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderQA();
+    });
+
+    // ==========================================
+    // 7. Calendar (2026.09.01 ~ 2026.12.31)
+    // ==========================================
+    const monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+
+    function renderCalendar() {
+      const label = document.getElementById('calMonthLabel');
+      label.textContent = `${calYear}년 ${monthNames[calMonth]}`;
+
+      // Update pills
+      document.querySelectorAll('.month-pill').forEach(pill => {
+        const m = parseInt(pill.dataset.month, 10);
+        if (m === calMonth) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
+
+      const container = document.getElementById('calGridDays');
+      container.innerHTML = '';
+
+      const firstDay = new Date(calYear, calMonth, 1);
+      const startDayOfWeek = firstDay.getDay(); // 0 = Sun
+      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+      const daysInPrevMonth = new Date(calYear, calMonth, 0).getDate();
+
+      // Today date checking
+      const today = new Date();
+      const isCurrentMonthThisMonth = (today.getFullYear() === calYear && today.getMonth() === calMonth);
+
+      // Prev Month trailing days
+      for (let i = startDayOfWeek - 1; i >= 0; i--) {
+        const dayNum = daysInPrevMonth - i;
+        const cell = document.createElement('div');
+        cell.className = 'cal-day-cell other-month';
+        cell.innerHTML = `<div class="day-number">${dayNum}</div>`;
+        container.appendChild(cell);
+      }
+
+      // Current Month days
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dayDate = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const dayOfWeek = new Date(calYear, calMonth, d).getDay();
+        
+        const cell = document.createElement('div');
+        cell.className = 'cal-day-cell';
+        if (dayOfWeek === 0) cell.classList.add('sun');
+        if (dayOfWeek === 6) cell.classList.add('sat');
+        if (isCurrentMonthThisMonth && today.getDate() === d) cell.classList.add('today');
+
+        // Events on this date
+        const dayEvents = eventItems.filter(ev => ev.date === dayDate);
+        let eventsHtml = '';
+        dayEvents.forEach(ev => {
+          eventsHtml += `
+            <div class="event-badge" data-id="${ev.id}" title="${escapeHtml(ev.memo || ev.title)}">
+              <span>${escapeHtml(ev.title)}</span>
+              <span class="del-x js-del-event" data-id="${ev.id}" title="일정 삭제">✕</span>
+            </div>
+          `;
+        });
+
+        cell.innerHTML = `
+          <div class="day-number">
+            <span>${d}</span>
+          </div>
+          <div class="events-list">${eventsHtml}</div>
+        `;
+
+        // Click cell to add event on this date
+        cell.addEventListener('click', (e) => {
+          if (e.target.classList.contains('js-del-event')) {
+            e.stopPropagation();
+            const evId = e.target.dataset.id;
+            if (confirm('이 일정을 삭제하시겠습니까?')) {
+              eventItems = eventItems.filter(x => x.id !== evId);
+              saveEventData();
+            }
+            return;
+          }
+          openAddEventModal(dayDate);
+        });
+
+        container.appendChild(cell);
+      }
+
+      // Next Month leading days to fill 35 or 42 grid
+      const totalCells = startDayOfWeek + daysInMonth;
+      const nextDays = totalCells <= 35 ? (35 - totalCells) : (42 - totalCells);
+      for (let j = 1; j <= nextDays; j++) {
+        const cell = document.createElement('div');
+        cell.className = 'cal-day-cell other-month';
+        cell.innerHTML = `<div class="day-number">${j}</div>`;
+        container.appendChild(cell);
+      }
+    }
+
+    // Month Navigation (Range 2026.09 to 2026.12)
+    document.getElementById('calPrevMonthBtn').addEventListener('click', () => {
+      if (calMonth > 8) {
+        calMonth--;
+        renderCalendar();
+      } else {
+        alert('본 달력은 2026년 9월부터 12월까지 운영 일정에 최적화되어 있습니다.');
+      }
+    });
+
+    document.getElementById('calNextMonthBtn').addEventListener('click', () => {
+      if (calMonth < 11) {
+        calMonth++;
+        renderCalendar();
+      } else {
+        alert('본 달력은 2026년 9월부터 12월까지 운영 일정에 최적화되어 있습니다.');
+      }
+    });
+
+    document.querySelectorAll('.month-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        calMonth = parseInt(pill.dataset.month, 10);
+        renderCalendar();
+      });
+    });
+
+    // Event Modal
+    const eventModal = document.getElementById('eventModal');
+    const modalEventDate = document.getElementById('modalEventDate');
+    const modalEventTitle = document.getElementById('modalEventTitle');
+    const modalEventMemo = document.getElementById('modalEventMemo');
+
+    function openAddEventModal(presetDate) {
+      modalEventDate.value = presetDate || '2026-09-01';
+      modalEventTitle.value = '';
+      modalEventMemo.value = '';
+      eventModal.classList.add('open');
+      modalEventTitle.focus();
+    }
+
+    document.getElementById('btnOpenAddEventModal').addEventListener('click', () => {
+      openAddEventModal(`${calYear}-${String(calMonth + 1).padStart(2, '0')}-01`);
+    });
+
+    function closeEventModal() {
+      eventModal.classList.remove('open');
+    }
+
+    document.getElementById('btnCloseEventModal').addEventListener('click', closeEventModal);
+    document.getElementById('btnCancelEventModal').addEventListener('click', closeEventModal);
+
+    document.getElementById('btnSaveEvent').addEventListener('click', () => {
+      const title = modalEventTitle.value.trim();
+      const date = modalEventDate.value;
+      if (!title) {
+        alert('일정 제목을 입력해주세요.');
+        modalEventTitle.focus();
+        return;
+      }
+      if (!date) {
+        alert('날짜를 선택해주세요.');
+        return;
+      }
+
+      const newEvent = {
+        id: 'ev_' + Date.now(),
+        date: date,
+        title: title,
+        memo: modalEventMemo.value.trim()
+      };
+
+      eventItems.push(newEvent);
+      saveEventData();
+      closeEventModal();
+    });
+
+    // ==========================================
+    // 8. Initialization
+    // ==========================================
+    updateCounts();
+    buildCategoryPills();
+    renderQA();
+  </script>
+</body>
+</html>
